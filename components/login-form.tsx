@@ -73,6 +73,15 @@ export function LoginForm({ toggleForm }: LoginFormProps) {
       // Armazenar o token de autenticação
       setAuthToken(response.data.token, rememberMe)
 
+      const userId = response.data.user?.id
+      if (userId) {
+        if (rememberMe) {
+          localStorage.setItem("userId", userId.toString())
+        } else {
+          sessionStorage.setItem("userId", userId.toString())
+        }
+      }
+
       toast({
         title: "Login realizado com sucesso",
         description: "Você será redirecionado para a página inicial",
